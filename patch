@@ -1,0 +1,5 @@
+#!/bin/sh
+for f in patches/dwm-*; do
+  patch -p1 < $f
+done
+patch -p1 < patches/config.diff
