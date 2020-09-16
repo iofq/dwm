@@ -59,7 +59,6 @@
 +static const char *audio_down[]  = { "amixer", "-c", "0", "set", "PCM", "10-", "unmute", NULL };
 +static const char *audio_up[]  = { "amixer", "-c", "0", "set", "PCM", "10+", "unmute", NULL };
 +static const char *audio_toggle[]  = { "amixer", "-c", "0", "set", "PCM", "toggle", NULL };
-+
  
  static Key keys[] = {
  	/* modifier                     key        function        argument */
