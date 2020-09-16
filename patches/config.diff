@@ -1,6 +1,8 @@
---- config.def.h	2020-09-15 18:25:40.152734838 -0500
-+++ config.def.h	2020-09-15 18:33:48.769628928 -0500
-@@ -8,5 +8,5 @@ static const int topbar             = 1;
+--- config.def.h.b4	2020-09-15 19:27:12.908468586 -0500
++++ config.h	2020-09-15 19:08:18.429149200 -0500
+@@ -6,17 +6,17 @@
+ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
  static const int focusonwheel       = 0;
 -static const char *fonts[]          = { "monospace:size=10" };
 -static const char dmenufont[]       = "monospace:size=10";
@@ -9,7 +11,7 @@
 +static const char dmenufont[]       = "RobotoMono Nerd Font Mono:size=10";
 +static const char col_gray1[]       = "#0b0911";
  static const char col_gray2[]       = "#444444";
-@@ -14,7 +14,7 @@ static const char col_gray3[]       = "#
+ static const char col_gray3[]       = "#bbbbbb";
  static const char col_gray4[]       = "#eeeeee";
 -static const char col_cyan[]        = "#005577";
 +static const char col_cyan[]        = "#1ABC9C";
@@ -20,27 +22,46 @@
 +	[SchemeNorm] = { col_cyan, col_gray1, col_gray2 },
 +	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
  };
-@@ -31,3 +31,2 @@ static const Rule rules[] = {
+ 
+ /* tagging */
+@@ -29,11 +29,10 @@
+ 	 */
+ 	/* class      instance    title       tags mask     isfloating   monitor */
  	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 -	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
  };
-@@ -35,3 +34,3 @@ static const Rule rules[] = {
+ 
  /* layout(s) */
 -static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 +static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
  static const int nmaster     = 1;    /* number of clients in master area */
-@@ -48,3 +47,4 @@ static const Layout layouts[] = {
+ static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+ 
+@@ -46,7 +45,8 @@
+ };
+ 
  /* key definitions */
 -#define MODKEY Mod1Mask
 +#define MODKEY Mod4Mask
 +#define ALTKEY Mod1Mask
  #define TAGKEYS(KEY,TAG) \
-@@ -60,3 +60,3 @@ static const Layout layouts[] = {
+ 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+@@ -58,39 +58,53 @@
+ 
+ /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 -static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 +static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray2, NULL };
  static const char *termcmd[]  = { "st", NULL };
-@@ -65,24 +65,27 @@ static Key keys[] = {
++static const char *backlight_down[]  = { "backlight", "-25", NULL };
++static const char *backlight_up[]  = { "backlight", "25", NULL };
++static const char *audio_down[]  = { "amixer", "-c", "0", "set", "PCM", "10-", "unmute", NULL };
++static const char *audio_up[]  = { "amixer", "-c", "0", "set", "PCM", "10+", "unmute", NULL };
++static const char *audio_toggle[]  = { "amixer", "-c", "0", "set", "PCM", "toggle", NULL };
++
+ 
+ static Key keys[] = {
  	/* modifier                     key        function        argument */
 -	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 -	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
@@ -83,3 +104,16 @@
 +	{ MODKEY|ALTKEY,                XK_g,  setlayout,      {0} },
 +	{ MODKEY|ShiftMask,             XK_g,  togglefloating, {0} },
  	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+ 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+ 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+ 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+ 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+ 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
++	{ MODKEY,                       XK_F6, spawn,       {.v = backlight_down } },
++	{ MODKEY,                       XK_F7, spawn,       {.v = backlight_up} },
++	{ MODKEY,                       XK_F8, spawn,       {.v = audio_toggle} },
++	{ MODKEY,                       XK_F9, spawn,       {.v = audio_down} },
++	{ MODKEY,                       XK_F10, spawn,       {.v = audio_up} },
+ 	TAGKEYS(                        XK_1,                      0)
+ 	TAGKEYS(                        XK_2,                      1)
+ 	TAGKEYS(                        XK_3,                      2)
