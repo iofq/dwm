@@ -24,7 +24,7 @@ index 4f2c946..6f54b59 100644
 +	[SchemeNorm] = { col_cyan, col_gray1, col_gray2 },
 +	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
  };
- 
+
  /* tagging */
 @@ -29,11 +29,11 @@ static const Rule rules[] = {
  	 */
@@ -33,16 +33,16 @@ index 4f2c946..6f54b59 100644
 -	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 +	/* { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
  };
- 
+
  /* layout(s) */
 -static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 +static const float mfact     = 0.60; /* factor of master area size [0.05..0.95] */
  static const int nmaster     = 1;    /* number of clients in master area */
  static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
- 
+
 @@ -45,7 +45,8 @@ static const Layout layouts[] = {
  };
- 
+
  /* key definitions */
 -#define MODKEY Mod1Mask
 +#define MODKEY Mod4Mask
@@ -51,15 +51,15 @@ index 4f2c946..6f54b59 100644
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
  	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 @@ -57,27 +58,36 @@ static const Layout layouts[] = {
- 
+
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 -static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 +static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray2, NULL };
  static const char *termcmd[]  = { "st", NULL };
- 
-+static const char *backlight_down[]  = { "backlight", "-25", NULL };
-+static const char *backlight_up[]  = { "backlight", "25", NULL };
+
++static const char *backlight_down[]  = { "backlight", "-10", NULL };
++static const char *backlight_up[]  = { "backlight", "10", NULL };
 +static const char *audio_down[]  = { "volume", "-10", NULL};
 +static const char *audio_up[]  = { "volume", "10", NULL } ;
 +static const char *audio_toggle[]  = { "volume", "M", NULL };
