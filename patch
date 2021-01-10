@@ -1,8 +1,10 @@
 #!/bin/sh
 make clean && rm config.h; git reset --hard origin/master
 for f in patches/dwm-*; do
-  patch -p1 < $f
+  echo "patching: " $f
+  patch -p1 < $f || exit 1
 done
-patch -p1 < patches/dwm_git_config.diff
-make && sudo make install
-rm *.rej *.orig
+echo "patching dwm_git_config.diff"
+patch -p1 < patches/dwm_git_config.diff || exit 1
+make && sudo make install && rm *.rej *.orig
+

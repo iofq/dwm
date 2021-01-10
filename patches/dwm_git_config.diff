@@ -1,5 +1,14 @@
+From 48a27ef676490f5bab43937144b3f786686c0ac1 Mon Sep 17 00:00:00 2001
+From: iofq <cjriddz@protonmail.com>
+Date: Sun, 10 Jan 2021 01:08:03 -0600
+Subject: [PATCH] y
+
+---
+ config.def.h | 57 +++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 36 insertions(+), 21 deletions(-)
+
 diff --git a/config.def.h b/config.def.h
-index 4f2c946..6f54b59 100644
+index 4f2c946..0668db2 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -6,17 +6,17 @@ static const unsigned int snap      = 32;       /* snap pixel */
@@ -13,36 +22,37 @@ index 4f2c946..6f54b59 100644
 +static const char dmenufont[]       = "RobotoMono Nerd Font Mono:size=10";
 +static const char col_gray1[]       = "#000000";
  static const char col_gray2[]       = "#444444";
- static const char col_gray3[]       = "#bbbbbb";
- static const char col_gray4[]       = "#eeeeee";
+-static const char col_gray3[]       = "#bbbbbb";
+-static const char col_gray4[]       = "#eeeeee";
 -static const char col_cyan[]        = "#005577";
++static const char col_gray3[]       = "#888888";
++static const char col_gray4[]       = "#e0e0d0";
 +static const char col_cyan[]        = "#5fafff";
  static const char *colors[][3]      = {
  	/*               fg         bg         border   */
--	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+ 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 -	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-+	[SchemeNorm] = { col_cyan, col_gray1, col_gray2 },
-+	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
++	[SchemeSel]  = { col_cyan, col_gray1,  col_gray4  },
  };
-
+ 
  /* tagging */
 @@ -29,11 +29,11 @@ static const Rule rules[] = {
  	 */
  	/* class      instance    title       tags mask     isfloating   monitor */
  	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 -	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
-+	/* { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
++	{ "Signal",  NULL,       NULL,       1 << 8,       0,           -1 },
  };
-
+ 
  /* layout(s) */
 -static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 +static const float mfact     = 0.60; /* factor of master area size [0.05..0.95] */
  static const int nmaster     = 1;    /* number of clients in master area */
  static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
-
+ 
 @@ -45,7 +45,8 @@ static const Layout layouts[] = {
  };
-
+ 
  /* key definitions */
 -#define MODKEY Mod1Mask
 +#define MODKEY Mod4Mask
@@ -51,13 +61,13 @@ index 4f2c946..6f54b59 100644
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
  	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 @@ -57,27 +58,36 @@ static const Layout layouts[] = {
-
+ 
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 -static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 +static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray2, NULL };
  static const char *termcmd[]  = { "st", NULL };
-
+ 
 +static const char *backlight_down[]  = { "backlight", "-10", NULL };
 +static const char *backlight_up[]  = { "backlight", "10", NULL };
 +static const char *audio_down[]  = { "volume", "-10", NULL};
@@ -110,3 +120,6 @@ index 4f2c946..6f54b59 100644
  	TAGKEYS(                        XK_1,                      0)
  	TAGKEYS(                        XK_2,                      1)
  	TAGKEYS(                        XK_3,                      2)
+-- 
+2.30.0
+
