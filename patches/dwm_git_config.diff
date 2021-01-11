@@ -1,14 +1,16 @@
-From 48a27ef676490f5bab43937144b3f786686c0ac1 Mon Sep 17 00:00:00 2001
+From c556874c011b08ffe225a9921315a787b34bca04 Mon Sep 17 00:00:00 2001
 From: iofq <cjriddz@protonmail.com>
-Date: Sun, 10 Jan 2021 01:08:03 -0600
-Subject: [PATCH] y
+Date: Mon, 11 Jan 2021 01:54:25 -0600
+Subject: [PATCH] b
 
 ---
- config.def.h | 57 +++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 36 insertions(+), 21 deletions(-)
+ config.def.h | 59 ++++++++++++++++++++++++++++++++--------------------
+ drw.c        |  1 +
+ dwm.c        |  2 +-
+ 3 files changed, 39 insertions(+), 23 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index 4f2c946..0668db2 100644
+index 4f2c946..8d2b7e5 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -6,17 +6,17 @@ static const unsigned int snap      = 32;       /* snap pixel */
@@ -27,7 +29,7 @@ index 4f2c946..0668db2 100644
 -static const char col_cyan[]        = "#005577";
 +static const char col_gray3[]       = "#888888";
 +static const char col_gray4[]       = "#e0e0d0";
-+static const char col_cyan[]        = "#5fafff";
++static const char col_cyan[]        = "#e0e0d0";
  static const char *colors[][3]      = {
  	/*               fg         bg         border   */
  	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -65,15 +67,16 @@ index 4f2c946..0668db2 100644
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 -static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+-static const char *termcmd[]  = { "st", NULL };
 +static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray2, NULL };
- static const char *termcmd[]  = { "st", NULL };
- 
++static const char *termcmd[]  = { "alacritty", NULL };
++
 +static const char *backlight_down[]  = { "backlight", "-10", NULL };
 +static const char *backlight_up[]  = { "backlight", "10", NULL };
 +static const char *audio_down[]  = { "volume", "-10", NULL};
 +static const char *audio_up[]  = { "volume", "10", NULL } ;
 +static const char *audio_toggle[]  = { "volume", "M", NULL };
-+
+ 
  static Key keys[] = {
  	/* modifier                     key        function        argument */
 -	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -120,6 +123,31 @@ index 4f2c946..0668db2 100644
  	TAGKEYS(                        XK_1,                      0)
  	TAGKEYS(                        XK_2,                      1)
  	TAGKEYS(                        XK_3,                      2)
+diff --git a/drw.c b/drw.c
+index 4cdbcbe..190420f 100644
+--- a/drw.c
++++ b/drw.c
+@@ -203,6 +203,7 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
+ 	                       DefaultColormap(drw->dpy, drw->screen),
+ 	                       clrname, dest))
+ 		die("error, cannot allocate color '%s'", clrname);
++    dest->pixel |= 0xff << 24;
+ }
+ 
+ /* Wrapper to create color schemes. The caller has to call free(3) on the
+diff --git a/dwm.c b/dwm.c
+index 91f53c9..c19f4da 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -981,7 +981,7 @@ grabbuttons(Client *c, int focused)
+ 					XGrabButton(dpy, buttons[i].button,
+ 						buttons[i].mask | modifiers[j],
+ 						c->win, False, BUTTONMASK,
+-						GrabModeSync, GrabModeSync, None, None);
++						GrabModeAsync, GrabModeSync, None, None);
+ 	}
+ }
+ 
 -- 
 2.30.0
 
