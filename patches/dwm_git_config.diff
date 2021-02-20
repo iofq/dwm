@@ -20,8 +20,8 @@ index 4f2c946..8d2b7e5 100644
 -static const char *fonts[]          = { "monospace:size=10" };
 -static const char dmenufont[]       = "monospace:size=10";
 -static const char col_gray1[]       = "#222222";
-+static const char *fonts[]          = { "RobotoMono Nerd Font Mono:size=10" };
-+static const char dmenufont[]       = "RobotoMono Nerd Font Mono:size=10";
++static const char *fonts[]          = { "Terminus Light:size=11" };
++static const char dmenufont[]       = "Terminus Light:size=11";
 +static const char col_gray1[]       = "#000000";
  static const char col_gray2[]       = "#444444";
 -static const char col_gray3[]       = "#bbbbbb";
@@ -61,7 +61,7 @@ index 4f2c946..8d2b7e5 100644
 +#define ALTKEY Mod1Mask
  #define TAGKEYS(KEY,TAG) \
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
- 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ALTKEY,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 @@ -57,27 +58,36 @@ static const Layout layouts[] = {
  
  /* commands */
@@ -71,11 +71,11 @@ index 4f2c946..8d2b7e5 100644
 +static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray2, NULL };
 +static const char *termcmd[]  = { "alacritty", NULL };
 +
-+static const char *backlight_down[]  = { "backlight", "-10", NULL };
-+static const char *backlight_up[]  = { "backlight", "10", NULL };
-+static const char *audio_down[]  = { "volume", "-10", NULL};
-+static const char *audio_up[]  = { "volume", "10", NULL } ;
-+static const char *audio_toggle[]  = { "volume", "M", NULL };
++static const char *backlight_down[]  = { "control", "backlight", "-10", NULL };
++static const char *backlight_up[]  = { "control", "backlight", "10", NULL };
++static const char *audio_down[]  = { "control", "volume", "-10", NULL};
++static const char *audio_up[]  = { "control", "volume", "10", NULL } ;
++static const char *audio_toggle[]  = { "control", "volume", "M", NULL };
  
  static Key keys[] = {
  	/* modifier                     key        function        argument */
