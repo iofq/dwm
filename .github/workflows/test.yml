@@ -14,6 +14,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: install dependancies
+        run: apt install -y libx11-dev libxft-dev libxinerama-dev
       
       - name: Clone dwm
         run: git clone https://git.suckless.org/dwm /tmp/dwm_base && cp -a $GITHUB_WORKSPACE/* /tmp/dwm_base/
