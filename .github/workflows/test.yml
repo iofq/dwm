@@ -1,0 +1,22 @@
+name: build_test
+
+on:
+  push:
+    branches:
+      - master
+      - testing
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Clone dwm
+        run: git clone https://git.suckless.org/dwm && cp -a $GITHUB_WORKSPACE/* dwm/
+
+      - name: Test the dwm patch and build
+        run: cd dwm && ./patch
