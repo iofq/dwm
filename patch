@@ -6,4 +6,4 @@ for f in patches/dwm-*; do
 done
 echo "patching dwm_git_config.diff"
 patch -p1 < patches/dwm_git_config.diff || exit 1
-make && sudo make install && rm *.rej *.orig
+make && sudo make install && rm -f *.rej *.orig
