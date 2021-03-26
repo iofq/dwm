@@ -16,7 +16,8 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Clone dwm
-        run: git clone https://git.suckless.org/dwm dwm_base && cp -a $GITHUB_WORKSPACE/dwm/* dwm_base/
+        run: git clone https://git.suckless.org/dwm dwm_base && cp -a dwm/* dwm_base/
 
       - name: Test the dwm patch and build
-        run: cd dwm_base && ./patch
+        working-directory: ./dwm_base
+        run: ./patch
