@@ -120,7 +120,7 @@ index 4f2c946..8d2b7e5 100644
 +	{ MODKEY,                       XK_F7,     spawn,          {.v = backlight_up} },
 +	{ MODKEY,                       XK_F8,     spawn,          {.v = audio_toggle} },
 +	{ MODKEY,                       XK_F9,     spawn,          {.v = audio_down} },
-+	{ MODKEY,                       XK_F11,    spawn,          {.v = audio_up} },
++	{ MODKEY,                       XK_F10,    spawn,          {.v = audio_up} },
 + 	TAGKEYS(                        XK_1,                      0)
 + 	TAGKEYS(                        XK_2,                      1)
 + 	TAGKEYS(                        XK_3,                      2)
