@@ -18,9 +18,13 @@ jobs:
       - name: install dependancies
         run: sudo apt install -y libx11-dev libxft-dev libxinerama-dev
       
-      - name: Clone dwm
-        run: git clone https://git.suckless.org/dwm /tmp/dwm_base && cp -a $GITHUB_WORKSPACE/* /tmp/dwm_base/
-
       - name: Test dwm patch and build
-        working-directory: /tmp/dwm_base
         run: ./patch
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - run: shellcheck *.sh
