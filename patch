@@ -3,19 +3,19 @@
 git submodule deinit -f .
 git submodule update --init --recursive
 
-cd dwm
+cd dwm || exit
 make clean && \
     rm -f config.h && \
-    rm -f *.rej *.orig
+    rm -f ./*.rej ./*.orig
 
 patches=(../patches/dwm-*)
 patches+=(../patches/dwm_*)
 
 for p in "${patches[@]}"; do
-  printf "patching: %s" $p
-  patch -p1 < $p || exit 1
+  printf "patching: %s" "$p"
+  patch -p1 < "$p" || exit 1
 done
 
 make && \
     sudo make install && \
-    rm -f *.rej *.orig
+    rm -f ./*.rej ./*.orig
