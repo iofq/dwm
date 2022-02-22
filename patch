@@ -1,10 +1,10 @@
 #!/bin/bash
 
 function clean_dwm() {
-    cd ..
+    cd .. || exit
     git submodule deinit -f .
     git submodule update --init --recursive
-    cd -
+    cd - || exit
     make clean && \
         rm -f config.h && \
         rm -f ./*.rej ./*.orig
