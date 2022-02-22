@@ -12,9 +12,15 @@ function clean_dwm() {
 
 function build_dwm() {
     for p in "$@"; do
-      printf "=======================================================\n"
       printf "patching: %s\n" "$p"
       patch -p1 < "$p" || exit 1
+    make && \
+        sudo make install && \
+        rm -f ./*.rej ./*.orig
+    read -n 1 -p Continue?
+    make clean && \
+        rm -f config.h && \
+        rm -f ./*.rej ./*.orig
     done
 }
 
@@ -24,14 +30,14 @@ cd dwm || exit
 clean_dwm
 patches=(../patches/dwm-*)
 build_dwm "${patches[@]}"
-cp config.def.h ../config.def.h.old && unset patches
+cp config.def.h config.def.h.old && unset patches
 
 #reset and patch with our changes
 clean_dwm
 patches=(../patches/dwm-*)
 patches+=(../patches/dwm_*)
 build_dwm "${patches[@]}"
-mv ../config.def.h.old .
+
 #build
 make && \
     sudo make install && \
